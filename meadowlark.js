@@ -1,11 +1,17 @@
 const express = require("express")
+const expressHandlebars = require("express-handlebars")
 const app = express()
 const port = process.env.PORT || 3000
 
+app.engine("handlebars", expressHandlebars({
+    defaultLayout: "main",
+}))
+app.set("view engine", "handlebars")
+
 //custom homepage
 app.get("/", (req, res) => {
-    res.type("text/plain")
-    res.send("Meadowlark Travel")
+    res.type("text/plain") //specifies what type of text
+    res.send("Meadowlark Travel") //
 })
 
 //custom about page
@@ -14,6 +20,7 @@ app.get("/about", (req, res) => {
     res.send("About Meadowlark Travel")
 })
 
+//needs to be below main pages, otherwise they won't work
 //custom 404 page
 app.use((req, res) => {
     res.type("text/plain")

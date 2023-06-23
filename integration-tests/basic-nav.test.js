@@ -29,14 +29,14 @@ not clean though, if a test makes changes that affect outcome of future tests
 */
 
 test("home page links to about page", async () => {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    await page.goto(`http://localhost:${port}`)
+    const browser = await puppeteer.launch() //launching headless broswer
+    const page = await browser.newPage() 
+    await page.goto(`http://localhost:${port}`) //go to website
     await Promise.all([
         page.waitForNavigation(),
         page.click('[data-test-id="about"]')
     ])
 
-    expect(page.url()).toBe(`http://localhost:${port}/about`)
+    expect(page.url()).toBe(`http://localhost:${port}/about`) //should navigate to about page
     await browser.close()
 })

@@ -15,12 +15,12 @@ const app = require("../meadowlark.js")
 let server = null
 let port = null
 
-beforeEach(async () => { //start server before each test
+beforeAll(async () => { //start server before each test
     port = await portfinder.getPortPromise()
     server = app.listen(port)
 })
 
-afterEach(() => { //start server after each test
+afterAll(() => { //start server after each test
     server.close()
 })
 
@@ -38,5 +38,18 @@ test("home page links to about page", async () => {
     ])
 
     expect(page.url()).toBe(`http://localhost:${port}/about`) //should navigate to about page
+    await browser.close()
+})
+
+test("about page links to home page", async () => {
+    const browser = await puppeteer.launch()
+    const page  = await browser.newPage()
+    await page.goto(`http://localhost:${port}/about`)
+    await Promise.all([
+        page.waitForNavigation(),
+        page.click('[data-test-id="home"]')
+    ])
+
+    expect(page.url()).toBe(`http://localhost:${port}/`)
     await browser.close()
 })

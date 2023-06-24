@@ -19,6 +19,8 @@ app.get("/", handlers.home)
 
 app.get("/about", handlers.about)
 
+app.get("/info", handlers.info)
+
 //needs to be below main pages, otherwise they won't work
 //custom 404 page
 app.use(handlers.notFound)

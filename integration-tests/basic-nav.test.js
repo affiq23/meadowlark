@@ -29,7 +29,7 @@ not clean though, if a test makes changes that affect outcome of future tests
 */
 
 test("home page links to about page", async () => {
-    const browser = await puppeteer.launch() //launching headless broswer
+    const browser = await puppeteer.launch(`headless: "new`) //launching headless broswer
     const page = await browser.newPage() 
     await page.goto(`http://localhost:${port}`) //go to website
     await Promise.all([
@@ -42,8 +42,8 @@ test("home page links to about page", async () => {
 })
 
 test("about page links to home page", async () => {
-    const browser = await puppeteer.launch()
-    const page  = await browser.newPage()
+    const browser = await puppeteer.launch(`headless: "new`) //`headless: new` is new feature
+    const page = await browser.newPage()
     await page.goto(`http://localhost:${port}/about`)
     await Promise.all([
         page.waitForNavigation(),
@@ -52,4 +52,18 @@ test("about page links to home page", async () => {
 
     expect(page.url()).toBe(`http://localhost:${port}/`)
     await browser.close()
+})
+
+test("home page links to info page", async() => {
+    const browser = await puppeteer.launch(`headless: "new`)
+    const page = await browser.newPage()
+    await page.goto(`http://localhost:${port}`)
+    await Promise.all([
+        page.waitForNavigation(),
+        page.click("[data-test-id=info]")
+    ])
+
+    expect(page.url()).toBe(`http://localhost:${port}/info`)
+    await browser.close()
+
 })

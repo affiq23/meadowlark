@@ -5,7 +5,8 @@
   "main": "meadowlark.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint meadowlark.js lib"
+    "lint": "eslint meadowlark.js lib",
+    "start":"nodemon meadowlark.js"
   },
   "author": "",
   "license": "ISC",
